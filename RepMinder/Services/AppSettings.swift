@@ -36,17 +36,17 @@ final class AppSettings: ObservableObject {
         UserDefaults.standard.set(value, forKey: key.rawValue)
     }
 
-    private func load<T>(_ key: Key, default defaultValue: T) -> T {
+    private static func load<T>(_ key: Key, default defaultValue: T) -> T {
         UserDefaults.standard.object(forKey: key.rawValue) as? T ?? defaultValue
     }
 
     private init() {
         homeSSID           = UserDefaults.standard.string(forKey: Key.homeSSID.rawValue) ?? ""
-        homeInterval       = load(.homeInterval, default: 60)
-        awayInterval       = load(.awayInterval, default: 180)
-        quietHoursEnabled  = load(.quietHoursEnabled, default: true)
-        quietHoursStart    = load(.quietHoursStart, default: 22)
-        quietHoursEnd      = load(.quietHoursEnd, default: 7)
-        manualHomeOverride = load(.manualHomeOverride, default: false)
+        homeInterval       = Self.load(.homeInterval, default: 60)
+        awayInterval       = Self.load(.awayInterval, default: 180)
+        quietHoursEnabled  = Self.load(.quietHoursEnabled, default: true)
+        quietHoursStart    = Self.load(.quietHoursStart, default: 22)
+        quietHoursEnd      = Self.load(.quietHoursEnd, default: 7)
+        manualHomeOverride = Self.load(.manualHomeOverride, default: false)
     }
 }

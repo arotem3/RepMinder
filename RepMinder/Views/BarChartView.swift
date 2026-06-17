@@ -53,13 +53,15 @@ struct BarChartView: View {
                 }
                 .chartYScale(domain: 0...100)
                 .chartYAxis {
-                    AxisMarks(values: [0, 50, 100]) {
+                    AxisMarks(values: [0, 50, 100]) { value in
                         AxisGridLine()
-                        AxisValueLabel { if let v = $0.as(Int.self) { Text("\(v)%") } }
+                        AxisValueLabel {
+                            if let v = value.as(Int.self) { Text("\(v)%") }
+                        }
                     }
                 }
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: max(1, periodDays / 7))) {
+                    AxisMarks(values: .automatic(desiredCount: 7)) {
                         AxisValueLabel()
                     }
                 }

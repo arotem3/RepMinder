@@ -36,7 +36,7 @@
 		58D9ED36B8BE17E2C6993AB5 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		5F7FFC2299D15C584C8F9889 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FEFFEDF3DF44764F8A0A602 /* LogRepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRepsView.swift; sourceTree = "<group>"; };
-		61E30A864D0645FA1021AAC1 /* RepMinder.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RepMinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		61E30A864D0645FA1021AAC1 /* RepMinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RepMinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83C75F77ABF966873A8296CC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		9AE26BC2CF2CAB4C9A8FC957 /* WiFiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiService.swift; sourceTree = "<group>"; };
 		A579040277B0C8BC19FA16B7 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
@@ -138,8 +138,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 6054FDF2B2F2CA9678C0C51B /* Build configuration list for PBXProject "RepMinder" */;
 			developmentRegion = en;
@@ -322,6 +320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RUH7G2K5Q9;
 				INFOPLIST_FILE = RepMinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -341,6 +340,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RUH7G2K5Q9;
 				INFOPLIST_FILE = RepMinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -53,7 +53,7 @@ struct LogRepsView: View {
                         } label: {
                             Image(systemName: "plus.circle.fill")
                                 .font(.system(size: 48))
-                                .foregroundStyle(.accentColor)
+                                .foregroundStyle(Color.accentColor)
                         }
                     }
 
