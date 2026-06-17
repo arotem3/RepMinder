@@ -10,10 +10,23 @@ struct RepMinderApp: App {
     let container: ModelContainer
 
     init() {
+        let schema = Schema([Exercise.self, ExerciseLog.self])
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
-            container = try ModelContainer(for: Exercise.self, ExerciseLog.self)
+            container = try ModelContainer(for: schema, configurations: [config])
         } catch {
-            fatalError("Failed to create SwiftData container: \(error)")
+            let storeURL = config.url
+            let fm = FileManager.default
+            for ext in ["", "-shm", "-wal"] {
+                let url = storeURL.deletingPathExtension().appendingPathExtension("store\(ext)")
+                try? fm.removeItem(at: url)
+            }
+            try? fm.removeItem(at: storeURL)
+            do {
+                container = try ModelContainer(for: schema, configurations: [config])
+            } catch {
+                fatalError("Failed to create SwiftData container: \(error)")
+            }
         }
     }
 

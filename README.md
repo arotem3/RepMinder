@@ -5,6 +5,7 @@ A personal iPhone app that reminds you to do bodyweight exercises throughout the
 ## Features
 
 - **Custom exercise goals** — add any exercise (push-ups, pull-ups, etc.) with a daily rep/time target
+- **Weekly schedules** — choose training days and rest days for each exercise
 - **Smart reminders** — frequent reminders when you're home (Wi-Fi based), less frequent when away
 - **Log reps** — tap an exercise to log a set; the reminder cadence adjusts automatically
 - **Quiet hours** — no reminders while you sleep

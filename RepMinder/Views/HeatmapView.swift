@@ -28,9 +28,11 @@ struct HeatmapView: View {
     private func cellColor(for date: Date) -> Color {
         guard !exercises.isEmpty else { return Color.secondary.opacity(0.1) }
         if date > Date() { return .clear }
-        let progress = exercises.reduce(0.0) {
-            $0 + min(1.0, Double($1.completed(on: date)) / Double(max(1, $1.dailyGoal)))
-        } / Double(exercises.count)
+        let scheduled = exercises.filter { $0.isScheduled(on: date) }
+        guard !scheduled.isEmpty else { return Color.secondary.opacity(0.06) }
+        let progress = scheduled.reduce(0.0) {
+            $0 + $1.goalCompletion(on: date)
+        } / Double(scheduled.count)
 
         switch progress {
         case 0:          return Color.secondary.opacity(0.12)

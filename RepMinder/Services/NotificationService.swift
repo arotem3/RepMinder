@@ -28,7 +28,7 @@ final class NotificationService: ObservableObject {
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
 
-        let incomplete = exercises.filter { !$0.isGoalMetToday }
+        let incomplete = exercises.filter { $0.isScheduled(on: Date()) && !$0.isGoalMetToday }
         guard !incomplete.isEmpty else { return }
 
         let settings = AppSettings.shared

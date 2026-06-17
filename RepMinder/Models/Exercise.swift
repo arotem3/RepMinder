@@ -7,6 +7,7 @@ final class Exercise {
     var name: String
     var unit: String
     var dailyGoal: Int
+    var scheduledWeekdays: [Int]
     var order: Int
     var isActive: Bool
     var createdAt: Date
@@ -14,11 +15,18 @@ final class Exercise {
     @Relationship(deleteRule: .cascade, inverse: \ExerciseLog.exercise)
     var logs: [ExerciseLog] = []
 
-    init(name: String, unit: String = "reps", dailyGoal: Int, order: Int = 0) {
+    init(
+        name: String,
+        unit: String = "reps",
+        dailyGoal: Int,
+        scheduledWeekdays: [Int] = Array(1...7),
+        order: Int = 0
+    ) {
         self.id = UUID()
         self.name = name
         self.unit = unit
         self.dailyGoal = dailyGoal
+        self.scheduledWeekdays = scheduledWeekdays.sorted()
         self.order = order
         self.isActive = true
         self.createdAt = Date()
@@ -31,14 +39,46 @@ final class Exercise {
             .reduce(0) { $0 + $1.amount }
     }
 
+    func isScheduled(on date: Date) -> Bool {
+        let weekday = Calendar.current.component(.weekday, from: date)
+        return scheduledWeekdays.contains(weekday)
+    }
+
+    func goalCompletion(on date: Date) -> Double {
+        guard isScheduled(on: date) else { return 1.0 }
+        guard dailyGoal > 0 else { return 0 }
+        return min(1.0, Double(completed(on: date)) / Double(dailyGoal))
+    }
+
+    func isGoalMet(on date: Date) -> Bool {
+        !isScheduled(on: date) || completed(on: date) >= dailyGoal
+    }
+
+    func remaining(on date: Date) -> Int {
+        guard isScheduled(on: date) else { return 0 }
+        return max(0, dailyGoal - completed(on: date))
+    }
+
+    func scheduledDayCount(forLast numberOfDays: Int, endingOn date: Date = Date()) -> Int {
+        let calendar = Calendar.current
+        let endDate = calendar.startOfDay(for: date)
+        return (0..<numberOfDays).reduce(0) { count, offset in
+            guard let day = calendar.date(byAdding: .day, value: -offset, to: endDate) else {
+                return count
+            }
+            return count + (isScheduled(on: day) ? 1 : 0)
+        }
+    }
+
     var completedToday: Int { completed(on: Date()) }
 
     var progressToday: Double {
-        guard dailyGoal > 0 else { return 0 }
-        return min(1.0, Double(completedToday) / Double(dailyGoal))
+        goalCompletion(on: Date())
     }
 
-    var isGoalMetToday: Bool { completedToday >= dailyGoal }
+    var isGoalMetToday: Bool { isGoalMet(on: Date()) }
 
-    var remainingToday: Int { max(0, dailyGoal - completedToday) }
+    var isRestToday: Bool { !isScheduled(on: Date()) }
+
+    var remainingToday: Int { remaining(on: Date()) }
 }

@@ -15,9 +15,15 @@ struct LogRepsView: View {
                 VStack(spacing: 6) {
                     Text(exercise.name)
                         .font(.title.bold())
-                    Text("\(exercise.completedToday) of \(exercise.dailyGoal) \(exercise.unit) done today")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                    if exercise.isRestToday {
+                        Text("Rest day today")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("\(exercise.completedToday) of \(exercise.dailyGoal) \(exercise.unit) done today")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
                     if exercise.remainingToday > 0 {
                         Text("\(exercise.remainingToday) to go")
                             .font(.caption)
@@ -83,7 +89,7 @@ struct LogRepsView: View {
                 Button {
                     logReps()
                 } label: {
-                    Text("Log \(amount) \(exercise.unit)")
+                    Text(exercise.isRestToday ? "Log \(amount) \(exercise.unit) Anyway" : "Log \(amount) \(exercise.unit)")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)

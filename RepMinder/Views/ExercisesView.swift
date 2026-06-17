@@ -64,6 +64,21 @@ struct ExercisesView: View {
 
 private struct ExerciseRow: View {
     let exercise: Exercise
+    private let weekdaySymbols = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+    private var scheduleText: String {
+        if exercise.scheduledWeekdays.count == 7 {
+            return "Every day"
+        }
+
+        return exercise.scheduledWeekdays
+            .sorted()
+            .compactMap { weekday in
+                guard weekdaySymbols.indices.contains(weekday - 1) else { return nil }
+                return weekdaySymbols[weekday - 1]
+            }
+            .joined(separator: ", ")
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -71,6 +86,9 @@ private struct ExerciseRow: View {
                 .font(.headline)
             Text("Goal: \(exercise.dailyGoal) \(exercise.unit) / day")
                 .font(.subheadline)
+                .foregroundStyle(.secondary)
+            Text(scheduleText)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)
